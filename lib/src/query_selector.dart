@@ -192,6 +192,7 @@ class SelectorEvaluator extends Visitor {
 
   static bool _isLegacyPsuedoClass(String name) {
     switch (name) {
+      case 'contains':
       case 'before':
       case 'after':
       case 'first-line':
@@ -223,6 +224,11 @@ class SelectorEvaluator extends Visitor {
               parent.nodes.indexOf(_element) == literal.value;
         }
         break;
+
+      case 'contains':
+        final text = node.expression.span.text;
+        return _element!.nodes.any((n)=>n.text?.contains(text) ?? false);
+      break;
 
       // http://dev.w3.org/csswg/selectors-4/#the-lang-pseudo
       case 'lang':
