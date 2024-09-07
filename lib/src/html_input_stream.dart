@@ -48,7 +48,7 @@ class HtmlInputStream {
   /// HtmlInputStream(source, [encoding]) -> Normalized stream from source
   /// for use by html5lib.
   ///
-  /// [source] can be either a [String] or a [List<int>] containing the raw
+  /// [source] can be either a `String` or a `List<int>` containing the raw
   /// bytes.
   ///
   /// The optional encoding parameter must be a string that indicates
@@ -329,16 +329,12 @@ bool _hasUtf8Bom(List<int> bytes, [int offset = 0, int? length]) {
 /// the codepoints. Supports the major unicode encodings as well as ascii and
 /// and windows-1252 encodings.
 List<int> _decodeBytes(String encoding, List<int> bytes) {
-  switch (encoding) {
-    case 'ascii':
-      return ascii.decode(bytes).codeUnits;
-
-    case 'utf-8':
+  return switch (encoding) {
+    'ascii' => ascii.decode(bytes).codeUnits,
+    'utf-8' =>
       // NOTE: To match the behavior of the other decode functions, we eat the
       // UTF-8 BOM here. This is the default behavior of `utf8.decode`.
-      return utf8.decode(bytes).codeUnits;
-
-    default:
-      throw ArgumentError('Encoding $encoding not supported');
-  }
+      utf8.decode(bytes).codeUnits,
+    _ => throw ArgumentError('Encoding $encoding not supported')
+  };
 }

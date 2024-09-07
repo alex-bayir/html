@@ -1,10 +1,10 @@
 /// A [List] proxy that you can subclass.
-library list_proxy;
+library;
 
 import 'dart:collection';
 
 abstract class ListProxy<E> extends ListBase<E> {
-  /// The inner [List<T>] with the actual storage.
+  /// The proxied list with actual storage.
   final List<E> _list = <E>[];
 
   @override

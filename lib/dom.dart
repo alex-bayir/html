@@ -1,6 +1,6 @@
 /// A simple tree API that results from parsing html. Intended to be compatible
 /// with dart:html, but it is missing many types and APIs.
-library dom;
+library;
 
 // ignore_for_file: constant_identifier_names
 
@@ -112,7 +112,7 @@ mixin _NonElementParentNode implements _ParentNode {
 // common methods from these:
 // http://dom.spec.whatwg.org/#interface-document
 // http://dom.spec.whatwg.org/#element
-abstract class _ElementAndDocument implements _ParentNode {
+abstract mixin class _ElementAndDocument implements _ParentNode {
   // TODO(jmesserly): could be faster, should throw on invalid tag/class names.
 
   List<Element> getElementsByTagName(String localName) =>
